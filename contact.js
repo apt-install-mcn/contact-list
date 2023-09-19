@@ -1,42 +1,55 @@
-// Define un array para almacenar los contactos
-const contactos = [];
+let contactos = [];
 
-// Función para crear un contacto
-function crearContacto(contacto) {
-    // Genera un ID único (puedes usar una función para esto)
-    const id = generarIDUnico();
-    
-    // Asigna el ID al contacto
-    contacto.id = id;
-
-    // Agrega el contacto al array de contactos
+function añadirContacto(contacto) {
     contactos.push(contacto);
 }
 
-// Función para eliminar un contacto por su ID
-function eliminarContacto(id) {
-    // Encuentra el índice del contacto con el ID dado
-    const indice = contactos.findIndex(contacto => contacto.id === id);
-    
-    // Si se encontró el contacto, elimínalo del array
+function borrarContacto(nombre) {
+    const indice = contactos.findIndex(contacto => contacto.nombres === nombre);
     if (indice !== -1) {
         contactos.splice(indice, 1);
     }
 }
 
-// Ejemplo de uso
+function imprimirContactos() {
+    for (let contacto of contactos) {
+        console.log("ID: " + contacto.id);
+        console.log("Nombres: " + contacto.nombres);
+        console.log("Apellidos: " + contacto.apellidos);
+        console.log("Teléfono: " + contacto.teléfono);
+        console.log("Ubicación:");
+        console.log("  Ciudad: " + contacto.ubicaciones.ciudad);
+        console.log("  Dirección: " + contacto.ubicaciones.dirección);
+        console.log("------------");
+    }
+}
+
 const nuevoContacto = {
-    nombres: "Juan",
-    apellidos: "Pérez",
+    id: 1,
+    nombres: "Moises",
+    apellidos: "Carrillo",
     teléfono: "123-456-7890",
     ubicaciones: {
-        ciudad: "Ciudad Ejemplo",
+        ciudad: "Bogotá",
         dirección: "Calle Principal 123"
     }
 };
 
-crearContacto(nuevoContacto);
-console.log(contactos); // Mostrará el array de contactos con el nuevo contacto
+añadirContacto(nuevoContacto);
 
-eliminarContacto(1); // Supongamos que 1 es el ID del contacto que deseas eliminar
-console.log(contactos); // Mostrará el array de contactos sin el contacto eliminado
+const otroContacto = {
+    id: 2,
+    nombres: "Maria",
+    apellidos: "Paula",
+    teléfono: "987-654-3210",
+    ubicaciones: {
+        ciudad: "Medellín",
+        dirección: "Avenida Secundaria 456"
+    }
+};
+
+añadirContacto(otroContacto);
+
+borrarContacto("Maria Paula");
+
+imprimirContactos();
